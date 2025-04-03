@@ -35,11 +35,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     curl_close($ch);
 
     if ($httpCode == 201 || $httpCode == 204) {
-        echo "Success! You're subscribed.";
+        echo "✅ Success! You're subscribed.";
     } else {
         http_response_code(500);
-        echo "Something went wrong. Please try again.";
+        echo "❌ Failed. Brevo API responded with status code: " . $httpCode . "<br><br>";
+        echo "<strong>Response:</strong><br>";
+        echo "<pre>";
+        print_r($response);
+        echo "</pre>";
+
     }
+    
 } else {
     http_response_code(403);
     echo "Forbidden.";
